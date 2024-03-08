@@ -1,0 +1,62 @@
+<mat-card class="post c c--col c--gap-lg">
+  <div class="post__main">
+    <header class="post__header">
+      <div class="c c--row">
+        <div class="post__avatar">{{ post.author.username[0] }}</div>
+
+        <div class="c c--col c--gap-sm">
+          <a class="post__link"> {{ post.author.username }}</a>
+          <mat-card-subtitle>
+            {{ post.updatedAt | date }}
+          </mat-card-subtitle>
+        </div>
+      </div>
+    </header>
+    <div class="post__content">
+      <p *ngIf="!isEditing" class="post__text">{{ post.text }}</p>
+      <form [formGroup]="updateForm" *ngIf="isEditing">
+        <textarea
+          formControlName="editedText"
+          [(ngModel)]="editedText"
+          class="post__textarea"
+        ></textarea>
+        <mat-error *ngIf="updateForm.get('editedText')?.invalid">
+          {{ getErrorMessage("editedText") }}
+        </mat-error>
+      </form>
+    </div>
+  </div>
+  <div class="post__actions">
+    <button mat-button (click)="showCommentForm = !showCommentForm">
+      <mat-icon>chat</mat-icon>Comment
+    </button>
+
+    <ng-container
+      *ngIf="(profileService.profile$ | async)?._id === post.author._id"
+    >
+      <button mat-button *ngIf="!isEditing" (click)="onEditPost()">
+        <mat-icon>edit</mat-icon>Edit
+      </button>
+      <button
+        mat-button
+        *ngIf="isEditing"
+        (click)="onSavePost()"
+        [disabled]="updateForm.invalid"
+      >
+        <mat-icon>done</mat-icon>Save
+      </button>
+      <button mat-button *ngIf="isEditing" (click)="onCancelEdit()">
+        <mat-icon>close</mat-icon>Cancel
+      </button>
+      <button mat-button (click)="onDeletePost()">
+        <mat-icon>delete</mat-icon>Remove
+      </button>
+    </ng-container>
+  </div>
+  <fs-comment-form
+    *ngIf="showCommentForm"
+    [postId]="post._id"
+    (commentCreated)="postComments.handleCommentCreated(); showCommentForm= false"
+  ></fs-comment-form>
+  <fs-post-comments [postId]="post._id" #postComments></fs-post-comments>
+</mat-card>

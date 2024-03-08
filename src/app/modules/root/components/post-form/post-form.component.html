@@ -1,0 +1,31 @@
+<div class="post-form">
+  <form [formGroup]="postForm" (ngSubmit)="create()" class="post-form">
+    <mat-form-field class="post-form__field">
+      <mat-label class="post-form__label">What are u thinking?</mat-label>
+      <textarea
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        matInput
+        formControlName="postContent"
+        class="post-form__textarea"
+      ></textarea>
+    </mat-form-field>
+    <button
+      mat-mini-fab
+      type="submit"
+      class="post-form__button"
+      color="primary"
+      [disabled]="!postForm.valid || isLoading"
+    >
+      <span *ngIf="!isLoading">
+        <mat-icon>add</mat-icon>
+      </span>
+      <mat-progress-spinner
+        diameter="20"
+        *ngIf="isLoading"
+      ></mat-progress-spinner>
+    </button>
+  </form>
+</div>
