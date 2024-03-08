@@ -27,7 +27,9 @@
     </div>
   </div>
   <div class="post__actions">
-    <button mat-button><mat-icon>chat</mat-icon>Comment</button>
+    <button mat-button (click)="showCommentForm = !showCommentForm">
+      <mat-icon>chat</mat-icon>Comment
+    </button>
 
     <ng-container
       *ngIf="(profileService.profile$ | async)?._id === post.author._id"
@@ -41,7 +43,7 @@
         (click)="onSavePost()"
         [disabled]="updateForm.invalid"
       >
-      <mat-icon>done</mat-icon>Save
+        <mat-icon>done</mat-icon>Save
       </button>
       <button mat-button *ngIf="isEditing" (click)="onCancelEdit()">
         <mat-icon>close</mat-icon>Cancel
@@ -51,4 +53,10 @@
       </button>
     </ng-container>
   </div>
+  <fs-comment-form
+    *ngIf="showCommentForm"
+    [postId]="post._id"
+    (commentCreated)="postComments.handleCommentCreated(); showCommentForm= false"
+  ></fs-comment-form>
+  <fs-post-comments [postId]="post._id" #postComments></fs-post-comments>
 </mat-card>

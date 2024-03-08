@@ -24,9 +24,6 @@ export class PostsService {
 
   createPost(post: CreatePost): Observable<Post> {
     return this.http.post<Post>(`${this.BASE_URL}${this.POST_URL}`, post).pipe(
-      tap(() =>
-        this.loggerService.handleSuccess('New post created successfully')
-      ),
       catchError(this.handleError<Post>('Create new post'))
     );
   }

@@ -20,6 +20,7 @@ export class PostComponent implements OnDestroy{
   updateForm!: FormGroup;
   isEditing: boolean = false;
   editedText: string = '';
+  showCommentForm: boolean = false; 
 
   constructor(
     public readonly profileService: ProfileService,

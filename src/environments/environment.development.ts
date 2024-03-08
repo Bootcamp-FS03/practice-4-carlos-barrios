@@ -6,5 +6,6 @@ export const environment = {
     signup: 'auth/signup',
     post: 'post',
     profile: 'user/profile',
+    commments: 'comment',
   },
 };

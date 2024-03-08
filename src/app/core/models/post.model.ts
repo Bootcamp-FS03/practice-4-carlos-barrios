@@ -13,6 +13,14 @@ export interface CreatePost {
   author: string;
 }
 
-export interface UpdatePost{
+export interface UpdatePost {
   text: string;
+}
+
+export interface PostAuthor {
+  _id: string;
+  username: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
 }

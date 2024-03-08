@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
+import { PostCommentsComponent } from './components/post-comments/post-comments.component';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-
     FeedComponent,
     PostComponent,
     PostFormComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    PostCommentsComponent,
+    CommentFormComponent
   ],
   imports: [
     CommonModule,
